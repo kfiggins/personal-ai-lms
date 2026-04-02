@@ -47,6 +47,20 @@ const contentLoaders = {
   "eu-12-working-with-images": () => import("./eu-12-working-with-images.js"),
   "eu-13-referencing-files": () => import("./eu-13-referencing-files.js"),
   "eu-14-resuming-conversations": () => import("./eu-14-resuming-conversations.js"),
+
+  // Configuration & Settings
+  "cfg-01-settings-overview": () => import("./cfg-01-settings-overview.js"),
+  "cfg-02-user-settings-file": () => import("./cfg-02-user-settings-file.js"),
+  "cfg-03-project-settings": () => import("./cfg-03-project-settings.js"),
+  "cfg-04-environment-variables": () => import("./cfg-04-environment-variables.js"),
+  "cfg-05-cli-reference-flags": () => import("./cfg-05-cli-reference-flags.js"),
+  "cfg-06-built-in-commands": () => import("./cfg-06-built-in-commands.js"),
+  "cfg-07-interactive-mode": () => import("./cfg-07-interactive-mode.js"),
+  "cfg-08-model-configuration": () => import("./cfg-08-model-configuration.js"),
+  "cfg-09-terminal-optimization": () => import("./cfg-09-terminal-optimization.js"),
+  "cfg-10-keybindings": () => import("./cfg-10-keybindings.js"),
+  "cfg-11-fast-mode": () => import("./cfg-11-fast-mode.js"),
+  "cfg-12-output-styles": () => import("./cfg-12-output-styles.js"),
 };
 
 export async function loadModuleContent(id) {
