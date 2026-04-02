@@ -105,6 +105,20 @@ const contentLoaders = {
   "plt-10-computer-use": () => import("./plt-10-computer-use.js"),
   "plt-11-voice-dictation": () => import("./plt-11-voice-dictation.js"),
   "plt-12-statusline-and-fullscreen": () => import("./plt-12-statusline-and-fullscreen.js"),
+
+  // CI/CD & Automation
+  "ci-01-automation-overview": () => import("./ci-01-automation-overview.js"),
+  "ci-02-print-mode": () => import("./ci-02-print-mode.js"),
+  "ci-03-structured-output": () => import("./ci-03-structured-output.js"),
+  "ci-04-programmatic-usage": () => import("./ci-04-programmatic-usage.js"),
+  "ci-05-github-actions-setup": () => import("./ci-05-github-actions-setup.js"),
+  "ci-06-github-actions-workflows": () => import("./ci-06-github-actions-workflows.js"),
+  "ci-07-gitlab-cicd": () => import("./ci-07-gitlab-cicd.js"),
+  "ci-08-automated-code-review": () => import("./ci-08-automated-code-review.js"),
+  "ci-09-scheduled-tasks-cloud": () => import("./ci-09-scheduled-tasks-cloud.js"),
+  "ci-10-scheduled-tasks-local": () => import("./ci-10-scheduled-tasks-local.js"),
+  "ci-11-piping-and-scripting": () => import("./ci-11-piping-and-scripting.js"),
+  "ci-12-agent-teams": () => import("./ci-12-agent-teams.js"),
 };
 
 export async function loadModuleContent(id) {
