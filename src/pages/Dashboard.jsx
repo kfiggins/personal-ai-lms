@@ -98,6 +98,27 @@ function Dashboard() {
         </div>
       </div>
 
+      {/* Mixed Quiz */}
+      {completedModules.length >= 3 && (
+        <div className="bg-dark-card border border-purple-500/30 rounded-xl p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🔀</span>
+            <div>
+              <span className="font-semibold">Mixed Review Quiz</span>
+              <p className="text-text-secondary text-sm">
+                Test yourself across {completedModules.length} completed modules
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate("/quiz/mixed")}
+            className="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm cursor-pointer"
+          >
+            Start Mixed Quiz
+          </button>
+        </div>
+      )}
+
       {/* Review Reminder */}
       {reviewCount > 0 && (
         <div className="bg-dark-card border border-accent/30 rounded-xl p-4 flex items-center justify-between">

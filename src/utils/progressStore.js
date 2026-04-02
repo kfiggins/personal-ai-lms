@@ -144,6 +144,63 @@ export function updateStreak(stateArg) {
   return state;
 }
 
+// --- Mixed Quiz ---
+
+export function getCompletedModulesWithScores() {
+  const state = getProgress();
+  const completed = [];
+  for (const mod of MODULES) {
+    const p = state.modules[mod.id];
+    if (p?.completed) {
+      const percentage = p.quizTotal > 0 ? (p.quizScore / p.quizTotal) * 100 : 100;
+      completed.push({
+        moduleId: mod.id,
+        title: mod.title,
+        category: mod.category,
+        categoryTitle: mod.categoryTitle,
+        quizScore: p.quizScore,
+        quizTotal: p.quizTotal,
+        percentage,
+      });
+    }
+  }
+  return completed;
+}
+
+export function saveMixedQuizResult(questions, answers) {
+  const state = getProgress();
+
+  // Group results by module
+  const byModule = {};
+  questions.forEach((q, i) => {
+    if (!byModule[q.moduleId]) {
+      byModule[q.moduleId] = { correct: 0, total: 0 };
+    }
+    byModule[q.moduleId].total++;
+    if (answers[i].correct) byModule[q.moduleId].correct++;
+  });
+
+  const totalScore = answers.filter((a) => a.correct).length;
+  const totalQuestions = questions.length;
+
+  state.quizHistory.push({
+    type: "mixed",
+    score: totalScore,
+    total: totalQuestions,
+    byModule,
+    answeredAt: new Date().toISOString(),
+  });
+
+  // Also add individual answers to review queue
+  questions.forEach((q, i) => {
+    addToReviewQueue(q.moduleId, q.id, answers[i].correct);
+  });
+
+  updateStreak(state);
+  saveProgress(state);
+  return state;
+}
+
 // --- Reset ---
 
 export function resetProgress() {

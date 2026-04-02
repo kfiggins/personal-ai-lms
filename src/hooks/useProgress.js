@@ -56,6 +56,16 @@ export function useProgress() {
     return updated;
   }, []);
 
+  const getCompletedModulesWithScores = useCallback(() => {
+    return store.getCompletedModulesWithScores();
+  }, []);
+
+  const saveMixedQuizResult = useCallback((questions, answers) => {
+    const updated = store.saveMixedQuizResult(questions, answers);
+    setProgress(updated);
+    return updated;
+  }, []);
+
   const resetProgress = useCallback(() => {
     const fresh = store.resetProgress();
     setProgress(fresh);
@@ -74,6 +84,8 @@ export function useProgress() {
     getReviewableQuestions,
     getReviewQueueSize,
     recordReviewAttempt,
+    getCompletedModulesWithScores,
+    saveMixedQuizResult,
     resetProgress,
   };
 }
