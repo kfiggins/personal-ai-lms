@@ -139,7 +139,9 @@ function Learn() {
             Dashboard
           </Link>
           <span>/</span>
-          <span>{moduleMeta.categoryTitle}</span>
+          <Link to={`/category/${moduleMeta.category}`} className="hover:text-accent transition-colors">
+            {moduleMeta.categoryTitle}
+          </Link>
           <span>/</span>
           <span>
             Module {moduleIndex + 1} of {categoryModules.length}

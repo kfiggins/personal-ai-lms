@@ -58,7 +58,7 @@ function Dashboard() {
       <div className="bg-dark-surface border border-dark-border rounded-2xl p-8 text-center">
         <h1 className="text-4xl font-bold mb-2">Claude Code Academy</h1>
         <p className="text-text-secondary text-lg mb-6">
-          Master Claude Code one bite-sized lesson at a time
+          {allModules.length} modules across {CATEGORIES.length} categories
         </p>
 
         <div className="max-w-md mx-auto mb-6">
@@ -191,7 +191,8 @@ function Dashboard() {
             return (
               <div
                 key={cat.id}
-                className="bg-dark-surface border border-dark-border rounded-xl p-5 flex flex-col"
+                onClick={() => navigate(`/category/${cat.id}`)}
+                className="bg-dark-surface border border-dark-border rounded-xl p-5 flex flex-col cursor-pointer hover:border-accent/40 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -220,7 +221,10 @@ function Dashboard() {
                       </p>
                     )}
                     <button
-                      onClick={() => navigate(`/learn/${targetModule.id}`)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/learn/${targetModule.id}`);
+                      }}
                       className={`w-full py-2 rounded-lg font-medium text-sm transition-colors cursor-pointer ${
                         allDone
                           ? "bg-green-900/30 text-green-400 border border-green-800 hover:bg-green-900/50"
