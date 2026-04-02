@@ -61,6 +61,18 @@ const contentLoaders = {
   "cfg-10-keybindings": () => import("./cfg-10-keybindings.js"),
   "cfg-11-fast-mode": () => import("./cfg-11-fast-mode.js"),
   "cfg-12-output-styles": () => import("./cfg-12-output-styles.js"),
+
+  // Memory & Context
+  "mc-01-what-is-claude-md": () => import("./mc-01-what-is-claude-md.js"),
+  "mc-02-creating-claude-md": () => import("./mc-02-creating-claude-md.js"),
+  "mc-03-effective-claude-md": () => import("./mc-03-effective-claude-md.js"),
+  "mc-04-claude-md-scopes": () => import("./mc-04-claude-md-scopes.js"),
+  "mc-05-rules-directory": () => import("./mc-05-rules-directory.js"),
+  "mc-06-auto-memory": () => import("./mc-06-auto-memory.js"),
+  "mc-07-the-claude-directory": () => import("./mc-07-the-claude-directory.js"),
+  "mc-08-context-window-deep-dive": () => import("./mc-08-context-window-deep-dive.js"),
+  "mc-09-managing-context": () => import("./mc-09-managing-context.js"),
+  "mc-10-memory-command": () => import("./mc-10-memory-command.js"),
 };
 
 export async function loadModuleContent(id) {

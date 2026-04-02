@@ -84,6 +84,16 @@ export const MODULES = [
   { id: "mc-01-claude-md", title: "CLAUDE.md Files", category: "memory-context", categoryTitle: "Memory & Context", order: 1, estimatedMinutes: 6, prerequisites: ["cf-01-settings-overview"], docSource: "claude-md" },
   { id: "mc-02-auto-memory", title: "Auto Memory System", category: "memory-context", categoryTitle: "Memory & Context", order: 2, estimatedMinutes: 5, prerequisites: ["mc-01-claude-md"], docSource: "memory" },
   { id: "mc-03-context-management", title: "Context Management Strategies", category: "memory-context", categoryTitle: "Memory & Context", order: 3, estimatedMinutes: 5, prerequisites: ["mc-02-auto-memory"], docSource: "context-management" },
+  { id: "mc-01-what-is-claude-md", title: "What is CLAUDE.md?", category: "memory-context", categoryTitle: "Memory & Context", order: 4, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "memory" },
+  { id: "mc-02-creating-claude-md", title: "Creating Your CLAUDE.md", category: "memory-context", categoryTitle: "Memory & Context", order: 5, estimatedMinutes: 4, prerequisites: ["mc-01-what-is-claude-md"], docSource: "memory" },
+  { id: "mc-03-effective-claude-md", title: "Writing an Effective CLAUDE.md", category: "memory-context", categoryTitle: "Memory & Context", order: 6, estimatedMinutes: 5, prerequisites: ["mc-02-creating-claude-md"], docSource: "memory" },
+  { id: "mc-04-claude-md-scopes", title: "CLAUDE.md Scopes and Hierarchy", category: "memory-context", categoryTitle: "Memory & Context", order: 7, estimatedMinutes: 4, prerequisites: ["mc-01-what-is-claude-md"], docSource: "memory" },
+  { id: "mc-05-rules-directory", title: "The Rules Directory", category: "memory-context", categoryTitle: "Memory & Context", order: 8, estimatedMinutes: 4, prerequisites: ["mc-04-claude-md-scopes"], docSource: "memory" },
+  { id: "mc-06-auto-memory", title: "Auto Memory", category: "memory-context", categoryTitle: "Memory & Context", order: 9, estimatedMinutes: 4, prerequisites: ["mc-01-what-is-claude-md"], docSource: "memory" },
+  { id: "mc-07-the-claude-directory", title: "The .claude Directory", category: "memory-context", categoryTitle: "Memory & Context", order: 10, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "claude-directory" },
+  { id: "mc-08-context-window-deep-dive", title: "Context Window Deep Dive", category: "memory-context", categoryTitle: "Memory & Context", order: 11, estimatedMinutes: 5, prerequisites: ["cc-10-the-context-window"], docSource: "context-window" },
+  { id: "mc-09-managing-context", title: "Managing Context Effectively", category: "memory-context", categoryTitle: "Memory & Context", order: 12, estimatedMinutes: 5, prerequisites: ["mc-08-context-window-deep-dive"], docSource: "how-claude-code-works" },
+  { id: "mc-10-memory-command", title: "The /memory Command", category: "memory-context", categoryTitle: "Memory & Context", order: 13, estimatedMinutes: 3, prerequisites: ["mc-06-auto-memory"], docSource: "memory" },
 
   // Extending Claude Code
   { id: "ex-01-custom-skills", title: "Custom Slash Commands", category: "extensibility", categoryTitle: "Extending Claude Code", order: 1, estimatedMinutes: 5, prerequisites: ["cf-01-settings-overview"], docSource: "skills" },
