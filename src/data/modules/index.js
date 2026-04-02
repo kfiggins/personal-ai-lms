@@ -73,6 +73,24 @@ const contentLoaders = {
   "mc-08-context-window-deep-dive": () => import("./mc-08-context-window-deep-dive.js"),
   "mc-09-managing-context": () => import("./mc-09-managing-context.js"),
   "mc-10-memory-command": () => import("./mc-10-memory-command.js"),
+
+  // Extending Claude Code
+  "ext-01-extensibility-overview": () => import("./ext-01-extensibility-overview.js"),
+  "ext-02-what-are-skills": () => import("./ext-02-what-are-skills.js"),
+  "ext-03-creating-a-skill": () => import("./ext-03-creating-a-skill.js"),
+  "ext-04-what-are-hooks": () => import("./ext-04-what-are-hooks.js"),
+  "ext-05-hook-events": () => import("./ext-05-hook-events.js"),
+  "ext-06-creating-a-hook": () => import("./ext-06-creating-a-hook.js"),
+  "ext-07-what-is-mcp": () => import("./ext-07-what-is-mcp.js"),
+  "ext-08-installing-mcp-servers": () => import("./ext-08-installing-mcp-servers.js"),
+  "ext-09-mcp-practical-examples": () => import("./ext-09-mcp-practical-examples.js"),
+  "ext-10-mcp-tool-search": () => import("./ext-10-mcp-tool-search.js"),
+  "ext-11-what-are-subagents": () => import("./ext-11-what-are-subagents.js"),
+  "ext-12-built-in-subagents": () => import("./ext-12-built-in-subagents.js"),
+  "ext-13-creating-custom-subagents": () => import("./ext-13-creating-custom-subagents.js"),
+  "ext-14-subagent-patterns": () => import("./ext-14-subagent-patterns.js"),
+  "ext-15-what-are-plugins": () => import("./ext-15-what-are-plugins.js"),
+  "ext-16-channels-overview": () => import("./ext-16-channels-overview.js"),
 };
 
 export async function loadModuleContent(id) {
