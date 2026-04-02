@@ -9,6 +9,7 @@ import {
   getCategory,
 } from "../data/moduleRegistry.js";
 import { useProgress } from "../hooks/useProgress.js";
+import { useSettings } from "../hooks/useSettings.js";
 import ContentBlock from "../components/ContentBlock.jsx";
 import PreTest from "../components/PreTest.jsx";
 
@@ -16,6 +17,7 @@ function Learn() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
   const { isModuleComplete, getModuleProgress, getPreTestResult, savePreTestResult, getUnmetPrerequisites } = useProgress();
+  const { settings } = useSettings();
 
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -108,7 +110,7 @@ function Learn() {
   // Show pre-test for modules the user hasn't completed yet
   // Skip if: already completed, already did pre-test, no quiz questions, or pre-test dismissed this session
   const hasQuizQuestions = content.quiz && content.quiz.length > 0;
-  const shouldShowPreTest = !completed && !existingPreTest && hasQuizQuestions && !preTestDone;
+  const shouldShowPreTest = settings.preTestBeforeModules && !completed && !existingPreTest && hasQuizQuestions && !preTestDone;
 
   if (shouldShowPreTest) {
     const preTestQuestions = content.quiz.slice(0, 3);

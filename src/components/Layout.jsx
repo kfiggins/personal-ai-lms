@@ -42,6 +42,15 @@ function Layout({ children }) {
             >
               Guide
             </NavLink>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors ${isActive ? 'text-accent' : 'text-text-secondary hover:text-text-primary'}`
+              }
+              title="Settings"
+            >
+              Settings
+            </NavLink>
           </div>
         </div>
       </nav>

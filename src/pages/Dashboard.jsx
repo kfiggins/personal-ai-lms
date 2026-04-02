@@ -8,6 +8,7 @@ import {
   getAllModules,
 } from "../data/moduleRegistry.js";
 import { checkAchievements, getUnlockedCount, ACHIEVEMENTS } from "../utils/achievementStore.js";
+import { useSettings } from "../hooks/useSettings.js";
 import AchievementToast from "../components/AchievementToast.jsx";
 
 function ProgressBar({ percentage, className = "" }) {
@@ -32,6 +33,7 @@ function Dashboard() {
     getUnmetPrerequisites,
   } = useProgress();
 
+  const { settings } = useSettings();
   const [newAchievements, setNewAchievements] = useState([]);
   const unlockedCount = getUnlockedCount();
   const totalAchievements = ACHIEVEMENTS.length;
@@ -88,13 +90,15 @@ function Dashboard() {
         </div>
 
         <div className="flex items-center justify-center gap-8 flex-wrap">
-          <div className="text-center">
-            <div className="text-2xl">🔥</div>
-            <div className="text-lg font-bold">
-              {progress.streaks.currentStreak}
+          {settings.showStreak && (
+            <div className="text-center">
+              <div className="text-2xl">🔥</div>
+              <div className="text-lg font-bold">
+                {progress.streaks.currentStreak}
+              </div>
+              <div className="text-xs text-text-secondary">day streak</div>
             </div>
-            <div className="text-xs text-text-secondary">day streak</div>
-          </div>
+          )}
           <div className="text-center">
             <div className="text-2xl">📚</div>
             <div className="text-lg font-bold">{overall.completed}</div>
@@ -269,10 +273,12 @@ function Dashboard() {
       </div>
 
       {/* Achievement Toast */}
-      <AchievementToast
-        achievements={newAchievements}
-        onDismiss={dismissToast}
-      />
+      {settings.showAchievementNotifications && (
+        <AchievementToast
+          achievements={newAchievements}
+          onDismiss={dismissToast}
+        />
+      )}
     </div>
   );
 }

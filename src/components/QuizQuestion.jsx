@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSettings } from "../hooks/useSettings.js";
 
 const CONFIDENCE_LEVELS = [
   { key: "guessing", label: "Guessing", icon: "🎲" },
@@ -7,6 +8,7 @@ const CONFIDENCE_LEVELS = [
 ];
 
 function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
+  const { settings } = useSettings();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [textInput, setTextInput] = useState("");
   const [showConfidence, setShowConfidence] = useState(false);
@@ -20,12 +22,16 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
       : selectedAnswer !== null;
 
   function handleCheckClick() {
+    if (!settings.confidenceRating) {
+      // Skip confidence step — check answer directly
+      checkAnswer(null);
+      return;
+    }
     setShowConfidence(true);
   }
 
-  function handleConfidenceSelect(level) {
+  function checkAnswer(level) {
     setConfidence(level);
-    // Now actually check the answer
     let correct = false;
 
     if (question.type === "multiple-choice" || question.type === "true-false") {
@@ -44,6 +50,10 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
     setIsCorrect(correct);
     setChecked(true);
     setShowConfidence(false);
+  }
+
+  function handleConfidenceSelect(level) {
+    checkAnswer(level);
   }
 
   function handleNext() {
