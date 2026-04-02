@@ -91,6 +91,20 @@ const contentLoaders = {
   "ext-14-subagent-patterns": () => import("./ext-14-subagent-patterns.js"),
   "ext-15-what-are-plugins": () => import("./ext-15-what-are-plugins.js"),
   "ext-16-channels-overview": () => import("./ext-16-channels-overview.js"),
+
+  // Platforms & Integrations
+  "plt-01-platforms-overview": () => import("./plt-01-platforms-overview.js"),
+  "plt-02-vs-code-extension": () => import("./plt-02-vs-code-extension.js"),
+  "plt-03-vs-code-features": () => import("./plt-03-vs-code-features.js"),
+  "plt-04-jetbrains-plugin": () => import("./plt-04-jetbrains-plugin.js"),
+  "plt-05-desktop-app": () => import("./plt-05-desktop-app.js"),
+  "plt-06-claude-code-on-the-web": () => import("./plt-06-claude-code-on-the-web.js"),
+  "plt-07-remote-control": () => import("./plt-07-remote-control.js"),
+  "plt-08-chrome-integration": () => import("./plt-08-chrome-integration.js"),
+  "plt-09-slack-integration": () => import("./plt-09-slack-integration.js"),
+  "plt-10-computer-use": () => import("./plt-10-computer-use.js"),
+  "plt-11-voice-dictation": () => import("./plt-11-voice-dictation.js"),
+  "plt-12-statusline-and-fullscreen": () => import("./plt-12-statusline-and-fullscreen.js"),
 };
 
 export async function loadModuleContent(id) {
