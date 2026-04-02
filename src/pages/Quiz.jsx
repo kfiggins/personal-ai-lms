@@ -104,13 +104,13 @@ function Quiz() {
     ? 100
     : Math.round((currentIndex / totalQuestions) * 100);
 
-  function handleAnswer(correct, userAnswer) {
-    const newAnswers = [...answers, { correct, userAnswer }];
+  function handleAnswer(correct, userAnswer, confidence) {
+    const newAnswers = [...answers, { correct, userAnswer, confidence }];
     setAnswers(newAnswers);
 
     // Add to review queue
     const question = questions[currentIndex];
-    addToReviewQueue(moduleId, question.id, correct);
+    addToReviewQueue(moduleId, question.id, correct, confidence);
 
     if (currentIndex + 1 < totalQuestions) {
       setCurrentIndex(currentIndex + 1);

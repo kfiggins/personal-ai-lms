@@ -193,7 +193,7 @@ export function saveMixedQuizResult(questions, answers) {
 
   // Also add individual answers to review queue
   questions.forEach((q, i) => {
-    addToReviewQueue(q.moduleId, q.id, answers[i].correct);
+    addToReviewQueue(q.moduleId, q.id, answers[i].correct, answers[i].confidence);
   });
 
   updateStreak(state);
@@ -231,7 +231,7 @@ export function resetProgress() {
 
 // --- SM-2 Spaced Repetition ---
 
-export function addToReviewQueue(moduleId, questionId, wasCorrect) {
+export function addToReviewQueue(moduleId, questionId, wasCorrect, confidence) {
   const state = getProgress();
   const existing = state.reviewQueue.find((r) => r.questionId === questionId);
 
@@ -256,12 +256,50 @@ export function addToReviewQueue(moduleId, questionId, wasCorrect) {
     moduleId,
     questionId,
     correct: wasCorrect,
+    confidence: confidence || null,
     answeredAt: new Date().toISOString(),
     attempts: 1,
   });
 
   saveProgress(state);
   return state;
+}
+
+// --- Calibration ---
+
+export function getCalibrationData() {
+  const state = getProgress();
+  const byConfidence = {
+    guessing: { correct: 0, total: 0 },
+    somewhat: { correct: 0, total: 0 },
+    confident: { correct: 0, total: 0 },
+  };
+
+  for (const entry of state.quizHistory) {
+    if (entry.confidence && byConfidence[entry.confidence]) {
+      byConfidence[entry.confidence].total++;
+      if (entry.correct) byConfidence[entry.confidence].correct++;
+    }
+  }
+
+  // Calibration score: how well confidence predicts accuracy
+  // Perfect calibration: guessing ~33%, somewhat ~66%, confident ~100%
+  const expected = { guessing: 0.33, somewhat: 0.66, confident: 1.0 };
+  let totalWeight = 0;
+  let totalError = 0;
+
+  for (const [key, data] of Object.entries(byConfidence)) {
+    if (data.total > 0) {
+      const actual = data.correct / data.total;
+      const error = Math.abs(actual - expected[key]);
+      totalError += error * data.total;
+      totalWeight += data.total;
+    }
+  }
+
+  const score = totalWeight > 0 ? Math.round((1 - totalError / totalWeight) * 100) : null;
+
+  return { byConfidence, score };
 }
 
 export function getReviewableQuestions() {

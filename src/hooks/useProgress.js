@@ -36,8 +36,8 @@ export function useProgress() {
     return store.getOverallProgress();
   }, []);
 
-  const addToReviewQueue = useCallback((moduleId, questionId, wasCorrect) => {
-    const updated = store.addToReviewQueue(moduleId, questionId, wasCorrect);
+  const addToReviewQueue = useCallback((moduleId, questionId, wasCorrect, confidence) => {
+    const updated = store.addToReviewQueue(moduleId, questionId, wasCorrect, confidence);
     setProgress(updated);
     return updated;
   }, []);
@@ -76,6 +76,10 @@ export function useProgress() {
     return store.getPreTestResult(moduleId);
   }, []);
 
+  const getCalibrationData = useCallback(() => {
+    return store.getCalibrationData();
+  }, []);
+
   const resetProgress = useCallback(() => {
     const fresh = store.resetProgress();
     setProgress(fresh);
@@ -98,6 +102,7 @@ export function useProgress() {
     saveMixedQuizResult,
     savePreTestResult,
     getPreTestResult,
+    getCalibrationData,
     resetProgress,
   };
 }

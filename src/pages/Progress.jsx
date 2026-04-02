@@ -63,6 +63,7 @@ function Progress() {
     getCategoryProgress,
     isModuleComplete,
     getReviewQueueSize,
+    getCalibrationData,
     resetProgress,
   } = useProgress();
 
@@ -71,6 +72,7 @@ function Progress() {
 
   const overall = getOverallProgress();
   const reviewCount = getReviewQueueSize();
+  const calibration = getCalibrationData();
 
   // Completed modules list
   const completedModules = MODULES.filter(
@@ -370,6 +372,21 @@ function Progress() {
               </div>
               <div className="text-2xl font-bold">
                 {completedModules.length > 0 ? `${quizAverage}%` : "—"}
+              </div>
+            </div>
+            <div>
+              <div className="text-sm text-text-secondary mb-1">
+                Calibration Score
+              </div>
+              <div className="text-2xl font-bold">
+                {calibration.score !== null ? (
+                  <span className={calibration.score >= 70 ? "text-green-400" : calibration.score >= 50 ? "text-yellow-400" : "text-red-400"}>
+                    {calibration.score}%
+                  </span>
+                ) : "—"}
+              </div>
+              <div className="text-xs text-text-secondary mt-1">
+                How well confidence predicts accuracy
               </div>
             </div>
             <div>

@@ -1,8 +1,16 @@
 import { useState } from "react";
 
+const CONFIDENCE_LEVELS = [
+  { key: "guessing", label: "Guessing", icon: "🎲" },
+  { key: "somewhat", label: "Somewhat sure", icon: "🤔" },
+  { key: "confident", label: "Very confident", icon: "💯" },
+];
+
 function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [textInput, setTextInput] = useState("");
+  const [showConfidence, setShowConfidence] = useState(false);
+  const [confidence, setConfidence] = useState(null);
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
 
@@ -11,7 +19,13 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
       ? textInput.trim().length > 0
       : selectedAnswer !== null;
 
-  function checkAnswer() {
+  function handleCheckClick() {
+    setShowConfidence(true);
+  }
+
+  function handleConfidenceSelect(level) {
+    setConfidence(level);
+    // Now actually check the answer
     let correct = false;
 
     if (question.type === "multiple-choice" || question.type === "true-false") {
@@ -29,6 +43,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
 
     setIsCorrect(correct);
     setChecked(true);
+    setShowConfidence(false);
   }
 
   function handleNext() {
@@ -36,7 +51,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
       question.type === "fill-in" || question.type === "code-completion"
         ? textInput.trim()
         : selectedAnswer;
-    onAnswer(isCorrect, userAnswer);
+    onAnswer(isCorrect, userAnswer, confidence);
   }
 
   function getCorrectAnswerText() {
@@ -93,7 +108,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
             return (
               <button
                 key={i}
-                onClick={() => !checked && setSelectedAnswer(i)}
+                onClick={() => !checked && !showConfidence && setSelectedAnswer(i)}
                 disabled={checked}
                 className={optionClass}
               >
@@ -135,7 +150,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
             value={textInput}
             onChange={(e) => !checked && setTextInput(e.target.value)}
             onKeyDown={(e) =>
-              e.key === "Enter" && hasAnswer && !checked && checkAnswer()
+              e.key === "Enter" && hasAnswer && !checked && !showConfidence && handleCheckClick()
             }
             disabled={checked}
             placeholder="Type your answer..."
@@ -163,7 +178,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
             value={textInput}
             onChange={(e) => !checked && setTextInput(e.target.value)}
             onKeyDown={(e) =>
-              e.key === "Enter" && hasAnswer && !checked && checkAnswer()
+              e.key === "Enter" && hasAnswer && !checked && !showConfidence && handleCheckClick()
             }
             disabled={checked}
             placeholder="Type what goes in the blank..."
@@ -207,11 +222,31 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
         </div>
       )}
 
+      {/* Confidence prompt */}
+      {showConfidence && (
+        <div className="mb-6 p-4 rounded-lg bg-dark-surface border border-dark-border">
+          <p className="text-sm text-text-secondary mb-3">
+            How confident are you?
+          </p>
+          <div className="flex gap-2">
+            {CONFIDENCE_LEVELS.map((level) => (
+              <button
+                key={level.key}
+                onClick={() => handleConfidenceSelect(level.key)}
+                className="flex-1 px-3 py-2 rounded-lg text-sm font-medium border border-dark-border bg-dark-card text-text-primary hover:border-accent hover:text-accent transition-colors cursor-pointer"
+              >
+                <span className="mr-1">{level.icon}</span> {level.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Action buttons */}
       <div className="flex gap-3">
-        {!checked ? (
+        {!checked && !showConfidence ? (
           <button
-            onClick={checkAnswer}
+            onClick={handleCheckClick}
             disabled={!hasAnswer}
             className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
               hasAnswer
@@ -221,7 +256,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
           >
             Check Answer
           </button>
-        ) : (
+        ) : checked ? (
           <button
             onClick={handleNext}
             className="bg-accent hover:bg-accent-hover text-dark-bg font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
@@ -230,7 +265,7 @@ function QuizQuestion({ question, questionIndex, totalQuestions, onAnswer }) {
               ? "Next Question"
               : "See Results"}
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

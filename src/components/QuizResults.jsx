@@ -1,5 +1,81 @@
 import { Link } from "react-router-dom";
 
+function CalibrationSection({ answers }) {
+  const byConfidence = { guessing: { correct: 0, total: 0 }, somewhat: { correct: 0, total: 0 }, confident: { correct: 0, total: 0 } };
+
+  answers.forEach((a) => {
+    if (a.confidence && byConfidence[a.confidence]) {
+      byConfidence[a.confidence].total++;
+      if (a.correct) byConfidence[a.confidence].correct++;
+    }
+  });
+
+  const levels = [
+    { key: "guessing", label: "Guessing", icon: "🎲" },
+    { key: "somewhat", label: "Somewhat sure", icon: "🤔" },
+    { key: "confident", label: "Very confident", icon: "💯" },
+  ];
+
+  // Detect calibration insights
+  const insights = [];
+  const conf = byConfidence.confident;
+  const guess = byConfidence.guessing;
+  if (conf.total > 0 && conf.correct / conf.total < 0.5) {
+    insights.push({ type: "overconfident", text: "Overconfident — high confidence but low accuracy. Review these topics carefully." });
+  }
+  if (guess.total > 0 && guess.correct / guess.total > 0.5) {
+    insights.push({ type: "underconfident", text: "Underconfident — you know more than you think! Trust your knowledge." });
+  }
+
+  const hasData = answers.some((a) => a.confidence);
+  if (!hasData) return null;
+
+  return (
+    <div className="mb-8">
+      <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-3">
+        Confidence Calibration
+      </h3>
+      <div className="bg-dark-surface border border-dark-border rounded-xl p-4">
+        <div className="grid grid-cols-3 gap-3 mb-3">
+          {levels.map(({ key, label, icon }) => {
+            const data = byConfidence[key];
+            if (data.total === 0) return (
+              <div key={key} className="text-center p-3 rounded-lg bg-dark-card/50">
+                <div className="text-lg mb-1">{icon}</div>
+                <div className="text-xs text-text-secondary">{label}</div>
+                <div className="text-sm text-text-secondary mt-1">—</div>
+              </div>
+            );
+            const pct = Math.round((data.correct / data.total) * 100);
+            const color = pct >= 80 ? "text-green-400" : pct >= 50 ? "text-yellow-400" : "text-red-400";
+            return (
+              <div key={key} className="text-center p-3 rounded-lg bg-dark-card/50">
+                <div className="text-lg mb-1">{icon}</div>
+                <div className="text-xs text-text-secondary">{label}</div>
+                <div className={`text-sm font-bold mt-1 ${color}`}>
+                  {data.correct}/{data.total} ({pct}%)
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {insights.map((insight, i) => (
+          <div
+            key={i}
+            className={`text-xs px-3 py-2 rounded-lg mt-2 ${
+              insight.type === "overconfident"
+                ? "bg-red-500/10 text-red-400 border border-red-500/20"
+                : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"
+            }`}
+          >
+            {insight.text}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function QuizResults({
   questions,
   answers,
@@ -67,6 +143,9 @@ function QuizResults({
         <p className="text-text-primary font-medium text-lg">{getMessage()}</p>
       </div>
 
+      {/* Calibration section */}
+      <CalibrationSection answers={answers} />
+
       {/* Question review */}
       <div className="space-y-3 mb-8">
         <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wide">
@@ -89,7 +168,7 @@ function QuizResults({
                 >
                   {answer.correct ? "✓" : "✕"}
                 </span>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-text-primary mb-1">
                     {q.question}
                   </p>
@@ -99,6 +178,11 @@ function QuizResults({
                     </p>
                   )}
                 </div>
+                {answer.confidence && (
+                  <span className="shrink-0 text-xs text-text-secondary" title={`Confidence: ${answer.confidence}`}>
+                    {answer.confidence === "guessing" ? "🎲" : answer.confidence === "somewhat" ? "🤔" : "💯"}
+                  </span>
+                )}
               </div>
             </div>
           );
