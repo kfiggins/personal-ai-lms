@@ -7,6 +7,7 @@ import Quiz from './pages/Quiz.jsx'
 import Review from './pages/Review.jsx'
 import Progress from './pages/Progress.jsx'
 import MixedQuiz from './pages/MixedQuiz.jsx'
+import Guide from './pages/Guide.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/quiz/:moduleId" element={<Quiz />} />
         <Route path="/review" element={<Review />} />
         <Route path="/progress" element={<Progress />} />
+        <Route path="/guide" element={<Guide />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

@@ -34,6 +34,14 @@ function Layout({ children }) {
             >
               Review
             </NavLink>
+            <NavLink
+              to="/guide"
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors ${isActive ? 'text-accent' : 'text-text-secondary hover:text-text-primary'}`
+              }
+            >
+              Guide
+            </NavLink>
           </div>
         </div>
       </nav>
