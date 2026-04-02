@@ -201,6 +201,26 @@ export function saveMixedQuizResult(questions, answers) {
   return state;
 }
 
+// --- Pre-test ---
+
+export function savePreTestResult(moduleId, score, total, answers) {
+  const state = getProgress();
+  if (!state.preTests) state.preTests = {};
+  state.preTests[moduleId] = {
+    score,
+    total,
+    answers,
+    completedAt: new Date().toISOString(),
+  };
+  saveProgress(state);
+  return state;
+}
+
+export function getPreTestResult(moduleId) {
+  const state = getProgress();
+  return state.preTests?.[moduleId] || null;
+}
+
 // --- Reset ---
 
 export function resetProgress() {

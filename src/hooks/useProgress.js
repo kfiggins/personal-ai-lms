@@ -66,6 +66,16 @@ export function useProgress() {
     return updated;
   }, []);
 
+  const savePreTestResult = useCallback((moduleId, score, total, answers) => {
+    const updated = store.savePreTestResult(moduleId, score, total, answers);
+    setProgress(updated);
+    return updated;
+  }, []);
+
+  const getPreTestResult = useCallback((moduleId) => {
+    return store.getPreTestResult(moduleId);
+  }, []);
+
   const resetProgress = useCallback(() => {
     const fresh = store.resetProgress();
     setProgress(fresh);
@@ -86,6 +96,8 @@ export function useProgress() {
     recordReviewAttempt,
     getCompletedModulesWithScores,
     saveMixedQuizResult,
+    savePreTestResult,
+    getPreTestResult,
     resetProgress,
   };
 }

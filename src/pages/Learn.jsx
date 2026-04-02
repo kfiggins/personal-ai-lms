@@ -10,14 +10,16 @@ import {
 } from "../data/moduleRegistry.js";
 import { useProgress } from "../hooks/useProgress.js";
 import ContentBlock from "../components/ContentBlock.jsx";
+import PreTest from "../components/PreTest.jsx";
 
 function Learn() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
-  const { isModuleComplete, getModuleProgress } = useProgress();
+  const { isModuleComplete, getModuleProgress, getPreTestResult, savePreTestResult } = useProgress();
 
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [preTestDone, setPreTestDone] = useState(false);
 
   const moduleMeta = getModule(moduleId);
   const nextModule = getNextModule(moduleId);
@@ -27,6 +29,7 @@ function Learn() {
     let cancelled = false;
     setLoading(true);
     setContent(null);
+    setPreTestDone(false);
 
     getModuleContent(moduleId).then((data) => {
       if (!cancelled) {
@@ -97,6 +100,29 @@ function Learn() {
 
   const completed = isModuleComplete(moduleId);
   const moduleProgress = getModuleProgress(moduleId);
+  const existingPreTest = getPreTestResult(moduleId);
+
+  // Show pre-test for modules the user hasn't completed yet
+  // Skip if: already completed, already did pre-test, no quiz questions, or pre-test dismissed this session
+  const hasQuizQuestions = content.quiz && content.quiz.length > 0;
+  const shouldShowPreTest = !completed && !existingPreTest && hasQuizQuestions && !preTestDone;
+
+  if (shouldShowPreTest) {
+    const preTestQuestions = content.quiz.slice(0, 3);
+    return (
+      <PreTest
+        moduleTitle={content.title}
+        questions={preTestQuestions}
+        onComplete={(result) => {
+          if (result) {
+            savePreTestResult(moduleId, result.score, result.total, result.answers);
+          }
+          setPreTestDone(true);
+        }}
+      />
+    );
+  }
+
   const category = getCategory(moduleMeta.category);
   const categoryModules = getModulesByCategory(moduleMeta.category);
   const moduleIndex = categoryModules.findIndex((m) => m.id === moduleId);
