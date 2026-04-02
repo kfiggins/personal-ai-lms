@@ -6,6 +6,7 @@ import {
   MODULES,
   getModulesByCategory,
 } from "../data/moduleRegistry.js";
+import AchievementsSection from "../components/AchievementsSection.jsx";
 
 function CircularProgress({ percentage, size = 140, strokeWidth = 10 }) {
   const radius = (size - strokeWidth) / 2;
@@ -438,6 +439,9 @@ function Progress() {
           </div>
         </div>
       </div>
+
+      {/* Achievements */}
+      <AchievementsSection />
 
       {/* Trouble Spots */}
       {leechQuestions.length > 0 && (

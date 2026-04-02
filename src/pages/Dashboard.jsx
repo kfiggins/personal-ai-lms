@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useProgress } from "../hooks/useProgress.js";
 import {
@@ -6,6 +7,8 @@ import {
   getModulesByCategory,
   getAllModules,
 } from "../data/moduleRegistry.js";
+import { checkAchievements, getUnlockedCount, ACHIEVEMENTS } from "../utils/achievementStore.js";
+import AchievementToast from "../components/AchievementToast.jsx";
 
 function ProgressBar({ percentage, className = "" }) {
   return (
@@ -28,6 +31,19 @@ function Dashboard() {
     getReviewQueueSize,
     getUnmetPrerequisites,
   } = useProgress();
+
+  const [newAchievements, setNewAchievements] = useState([]);
+  const unlockedCount = getUnlockedCount();
+  const totalAchievements = ACHIEVEMENTS.length;
+
+  useEffect(() => {
+    const justUnlocked = checkAchievements();
+    if (justUnlocked.length > 0) {
+      setNewAchievements(justUnlocked);
+    }
+  }, [progress]);
+
+  const dismissToast = useCallback(() => setNewAchievements([]), []);
 
   const overall = getOverallProgress();
   const reviewCount = getReviewQueueSize();
@@ -95,6 +111,17 @@ function Dashboard() {
             <div className="text-2xl">🔄</div>
             <div className="text-lg font-bold">{reviewCount}</div>
             <div className="text-xs text-text-secondary">reviews due</div>
+          </div>
+          <div
+            className="text-center cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate("/progress")}
+          >
+            <div className="text-2xl">🏆</div>
+            <div className="text-lg font-bold">
+              <span className="text-amber-400">{unlockedCount}</span>
+              <span className="text-text-secondary text-sm font-normal">/{totalAchievements}</span>
+            </div>
+            <div className="text-xs text-text-secondary">achievements</div>
           </div>
         </div>
       </div>
@@ -240,6 +267,12 @@ function Dashboard() {
           })}
         </div>
       </div>
+
+      {/* Achievement Toast */}
+      <AchievementToast
+        achievements={newAchievements}
+        onDismiss={dismissToast}
+      />
     </div>
   );
 }
