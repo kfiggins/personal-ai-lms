@@ -171,6 +171,18 @@ export const MODULES = [
   { id: "ad-01-subagents", title: "Multi-Agent Workflows", category: "advanced", categoryTitle: "Advanced Topics", order: 1, estimatedMinutes: 7, prerequisites: ["cc-03-tools-overview", "ex-01-custom-skills"], docSource: "subagents" },
   { id: "ad-02-computer-use", title: "Computer Use", category: "advanced", categoryTitle: "Advanced Topics", order: 2, estimatedMinutes: 6, prerequisites: ["ad-01-subagents"], docSource: "computer-use" },
   { id: "ad-03-agent-teams", title: "Agent Teams and Orchestration", category: "advanced", categoryTitle: "Advanced Topics", order: 3, estimatedMinutes: 8, prerequisites: ["ad-01-subagents"], docSource: "agent-teams" },
+  { id: "adv-01-advanced-prompting", title: "Advanced Prompting", category: "advanced", categoryTitle: "Advanced Topics", order: 4, estimatedMinutes: 5, prerequisites: ["gs-05-your-first-session"], docSource: "best-practices" },
+  { id: "adv-02-parallel-sessions", title: "Parallel Sessions", category: "advanced", categoryTitle: "Advanced Topics", order: 5, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "best-practices" },
+  { id: "adv-03-git-worktrees", title: "Git Worktrees", category: "advanced", categoryTitle: "Advanced Topics", order: 6, estimatedMinutes: 4, prerequisites: ["adv-02-parallel-sessions"], docSource: "common-workflows" },
+  { id: "adv-04-extended-thinking", title: "Extended Thinking", category: "advanced", categoryTitle: "Advanced Topics", order: 7, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "common-workflows" },
+  { id: "adv-05-agent-teams-deep-dive", title: "Agent Teams Deep Dive", category: "advanced", categoryTitle: "Advanced Topics", order: 8, estimatedMinutes: 5, prerequisites: ["adv-02-parallel-sessions"], docSource: "agent-teams" },
+  { id: "adv-06-custom-system-prompts", title: "Custom System Prompts", category: "advanced", categoryTitle: "Advanced Topics", order: 9, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "cli-reference" },
+  { id: "adv-07-auto-mode", title: "Auto Mode", category: "advanced", categoryTitle: "Advanced Topics", order: 10, estimatedMinutes: 4, prerequisites: ["sec-02-permission-system-deep-dive"], docSource: "permission-modes" },
+  { id: "adv-08-hook-advanced-patterns", title: "Hook Advanced Patterns", category: "advanced", categoryTitle: "Advanced Topics", order: 11, estimatedMinutes: 5, prerequisites: ["ext-04-what-are-hooks"], docSource: "hooks-reference" },
+  { id: "adv-09-mcp-advanced", title: "MCP Advanced", category: "advanced", categoryTitle: "Advanced Topics", order: 12, estimatedMinutes: 4, prerequisites: ["ext-07-what-is-mcp"], docSource: "mcp" },
+  { id: "adv-10-building-plugins", title: "Building Plugins", category: "advanced", categoryTitle: "Advanced Topics", order: 13, estimatedMinutes: 4, prerequisites: ["ext-15-what-are-plugins"], docSource: "plugins" },
+  { id: "adv-11-monitoring-and-observability", title: "Monitoring and Observability", category: "advanced", categoryTitle: "Advanced Topics", order: 14, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "monitoring-usage" },
+  { id: "adv-12-troubleshooting", title: "Troubleshooting", category: "advanced", categoryTitle: "Advanced Topics", order: 15, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "troubleshooting" },
 ];
 
 // Build lookup maps for fast access

@@ -133,6 +133,20 @@ const contentLoaders = {
   "sec-10-reducing-token-usage": () => import("./sec-10-reducing-token-usage.js"),
   "sec-11-enterprise-deployment": () => import("./sec-11-enterprise-deployment.js"),
   "sec-12-managed-settings": () => import("./sec-12-managed-settings.js"),
+
+  // Advanced Topics
+  "adv-01-advanced-prompting": () => import("./adv-01-advanced-prompting.js"),
+  "adv-02-parallel-sessions": () => import("./adv-02-parallel-sessions.js"),
+  "adv-03-git-worktrees": () => import("./adv-03-git-worktrees.js"),
+  "adv-04-extended-thinking": () => import("./adv-04-extended-thinking.js"),
+  "adv-05-agent-teams-deep-dive": () => import("./adv-05-agent-teams-deep-dive.js"),
+  "adv-06-custom-system-prompts": () => import("./adv-06-custom-system-prompts.js"),
+  "adv-07-auto-mode": () => import("./adv-07-auto-mode.js"),
+  "adv-08-hook-advanced-patterns": () => import("./adv-08-hook-advanced-patterns.js"),
+  "adv-09-mcp-advanced": () => import("./adv-09-mcp-advanced.js"),
+  "adv-10-building-plugins": () => import("./adv-10-building-plugins.js"),
+  "adv-11-monitoring-and-observability": () => import("./adv-11-monitoring-and-observability.js"),
+  "adv-12-troubleshooting": () => import("./adv-12-troubleshooting.js"),
 };
 
 export async function loadModuleContent(id) {
