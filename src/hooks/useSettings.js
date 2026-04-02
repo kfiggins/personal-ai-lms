@@ -1,14 +1,12 @@
-import { useState, useCallback } from "react";
-import * as store from "../utils/settingsStore.js";
+// Thin wrapper around DataContext for backwards compatibility.
+
+import { useData } from '../contexts/DataContext.jsx'
 
 export function useSettings() {
-  const [settings, setSettings] = useState(store.getSettings);
+  const data = useData()
 
-  const updateSetting = useCallback((key, value) => {
-    const updated = store.updateSetting(key, value);
-    setSettings({ ...updated });
-    return updated;
-  }, []);
-
-  return { settings, updateSetting };
+  return {
+    settings: data.settings,
+    updateSetting: data.updateSetting,
+  }
 }

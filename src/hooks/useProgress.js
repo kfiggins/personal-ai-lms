@@ -1,123 +1,31 @@
-import { useState, useEffect, useCallback } from "react";
-import * as store from "../utils/progressStore.js";
+// Thin wrapper around DataContext for backwards compatibility.
+// All components that use useProgress() continue to work unchanged.
+
+import { useData } from '../contexts/DataContext.jsx'
 
 export function useProgress() {
-  const [progress, setProgress] = useState(store.getProgress);
-
-  // Update streak on mount
-  useEffect(() => {
-    const updated = store.updateStreak();
-    setProgress(updated);
-  }, []);
-
-  const refresh = useCallback(() => {
-    setProgress(store.getProgress());
-  }, []);
-
-  const markModuleComplete = useCallback((moduleId, quizScore, quizTotal) => {
-    const updated = store.markModuleComplete(moduleId, quizScore, quizTotal);
-    setProgress(updated);
-    return updated;
-  }, []);
-
-  const getModuleProgress = useCallback((moduleId) => {
-    return store.getModuleProgress(moduleId);
-  }, []);
-
-  const isModuleComplete = useCallback((moduleId) => {
-    return store.isModuleComplete(moduleId);
-  }, []);
-
-  const getCategoryProgress = useCallback((categoryId) => {
-    return store.getCategoryProgress(categoryId);
-  }, []);
-
-  const getOverallProgress = useCallback(() => {
-    return store.getOverallProgress();
-  }, []);
-
-  const addToReviewQueue = useCallback((moduleId, questionId, wasCorrect, confidence) => {
-    const updated = store.addToReviewQueue(moduleId, questionId, wasCorrect, confidence);
-    setProgress(updated);
-    return updated;
-  }, []);
-
-  const getReviewableQuestions = useCallback(() => {
-    return store.getReviewableQuestions();
-  }, []);
-
-  const getReviewQueueSize = useCallback(() => {
-    return store.getReviewQueueSize();
-  }, []);
-
-  const recordReviewAttempt = useCallback((questionId, quality) => {
-    const updated = store.recordReviewAttempt(questionId, quality);
-    setProgress(updated);
-    return updated;
-  }, []);
-
-  const getCompletedModulesWithScores = useCallback(() => {
-    return store.getCompletedModulesWithScores();
-  }, []);
-
-  const saveMixedQuizResult = useCallback((questions, answers) => {
-    const updated = store.saveMixedQuizResult(questions, answers);
-    setProgress(updated);
-    return updated;
-  }, []);
-
-  const savePreTestResult = useCallback((moduleId, score, total, answers) => {
-    const updated = store.savePreTestResult(moduleId, score, total, answers);
-    setProgress(updated);
-    return updated;
-  }, []);
-
-  const getPreTestResult = useCallback((moduleId) => {
-    return store.getPreTestResult(moduleId);
-  }, []);
-
-  const getCalibrationData = useCallback(() => {
-    return store.getCalibrationData();
-  }, []);
-
-  const getUnmetPrerequisites = useCallback((moduleId) => {
-    return store.getUnmetPrerequisites(moduleId);
-  }, []);
-
-  const getLeechQuestions = useCallback(() => {
-    return store.getLeechQuestions();
-  }, []);
-
-  const isLeechQuestion = useCallback((questionId) => {
-    return store.isLeechQuestion(questionId);
-  }, []);
-
-  const resetProgress = useCallback(() => {
-    const fresh = store.resetProgress();
-    setProgress(fresh);
-    return fresh;
-  }, []);
+  const data = useData()
 
   return {
-    progress,
-    refresh,
-    markModuleComplete,
-    getModuleProgress,
-    isModuleComplete,
-    getCategoryProgress,
-    getOverallProgress,
-    addToReviewQueue,
-    getReviewableQuestions,
-    getReviewQueueSize,
-    recordReviewAttempt,
-    getCompletedModulesWithScores,
-    saveMixedQuizResult,
-    savePreTestResult,
-    getPreTestResult,
-    getCalibrationData,
-    getUnmetPrerequisites,
-    getLeechQuestions,
-    isLeechQuestion,
-    resetProgress,
-  };
+    progress: data.progress,
+    refresh: () => {},
+    markModuleComplete: data.markModuleComplete,
+    getModuleProgress: data.getModuleProgress,
+    isModuleComplete: data.isModuleComplete,
+    getCategoryProgress: data.getCategoryProgress,
+    getOverallProgress: data.getOverallProgress,
+    addToReviewQueue: data.addToReviewQueue,
+    getReviewableQuestions: data.getReviewableQuestions,
+    getReviewQueueSize: data.getReviewQueueSize,
+    recordReviewAttempt: data.recordReviewAttempt,
+    getCompletedModulesWithScores: data.getCompletedModulesWithScores,
+    saveMixedQuizResult: data.saveMixedQuizResult,
+    savePreTestResult: data.savePreTestResult,
+    getPreTestResult: data.getPreTestResult,
+    getCalibrationData: data.getCalibrationData,
+    getUnmetPrerequisites: data.getUnmetPrerequisites,
+    getLeechQuestions: data.getLeechQuestions,
+    isLeechQuestion: data.isLeechQuestion,
+    resetProgress: data.resetProgress,
+  }
 }

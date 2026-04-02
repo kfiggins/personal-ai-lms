@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
+import { AuthProvider, useAuth } from './contexts/AuthContext.jsx'
+import { DataProvider, useData } from './contexts/DataContext.jsx'
 import Layout from './components/Layout.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Category from './pages/Category.jsx'
@@ -9,9 +11,25 @@ import Progress from './pages/Progress.jsx'
 import MixedQuiz from './pages/MixedQuiz.jsx'
 import Guide from './pages/Guide.jsx'
 import Settings from './pages/Settings.jsx'
+import Login from './pages/Login.jsx'
 import NotFound from './pages/NotFound.jsx'
 
-function App() {
+function AppRoutes() {
+  const { user, loading: authLoading } = useAuth()
+  const { loading: dataLoading } = useData()
+
+  if (authLoading || (user && dataLoading)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-text-secondary">Loading...</p>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return <Login />
+  }
+
   return (
     <Layout>
       <Routes>
@@ -27,6 +45,16 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <DataProvider>
+        <AppRoutes />
+      </DataProvider>
+    </AuthProvider>
   )
 }
 

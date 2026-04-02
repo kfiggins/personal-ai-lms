@@ -1,4 +1,4 @@
-import { getAchievementStatus } from "../utils/achievementStore.js";
+import { useData } from "../contexts/DataContext.jsx";
 
 const ICON_MAP = {
   footprints: "\u{1F9B6}",
@@ -26,6 +26,7 @@ const CATEGORY_ORDER = [
 ];
 
 function AchievementsSection() {
+  const { getAchievementStatus } = useData();
   const achievements = getAchievementStatus();
   const unlockedCount = achievements.filter((a) => a.unlocked).length;
 

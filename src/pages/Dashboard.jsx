@@ -7,7 +7,7 @@ import {
   getModulesByCategory,
   getAllModules,
 } from "../data/moduleRegistry.js";
-import { checkAchievements, getUnlockedCount, ACHIEVEMENTS } from "../utils/achievementStore.js";
+import { useData } from "../contexts/DataContext.jsx";
 import { useSettings } from "../hooks/useSettings.js";
 import AchievementToast from "../components/AchievementToast.jsx";
 
@@ -34,16 +34,20 @@ function Dashboard() {
   } = useProgress();
 
   const { settings } = useSettings();
+  const { checkAchievements, getUnlockedCount, ACHIEVEMENTS } = useData();
   const [newAchievements, setNewAchievements] = useState([]);
   const unlockedCount = getUnlockedCount();
   const totalAchievements = ACHIEVEMENTS.length;
 
   useEffect(() => {
-    const justUnlocked = checkAchievements();
-    if (justUnlocked.length > 0) {
-      setNewAchievements(justUnlocked);
-    }
-  }, [progress]);
+    const run = async () => {
+      const justUnlocked = await checkAchievements();
+      if (justUnlocked.length > 0) {
+        setNewAchievements(justUnlocked);
+      }
+    };
+    run();
+  }, [progress, checkAchievements]);
 
   const dismissToast = useCallback(() => setNewAchievements([]), []);
 
