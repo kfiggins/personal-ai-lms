@@ -31,6 +31,22 @@ const contentLoaders = {
   "cc-12-checkpoints-and-undo": () => import("./cc-12-checkpoints-and-undo.js"),
   "cc-13-permission-modes-intro": () => import("./cc-13-permission-modes-intro.js"),
   "cc-14-execution-environments": () => import("./cc-14-execution-environments.js"),
+
+  // Everyday Usage
+  "eu-01-exploring-a-codebase": () => import("./eu-01-exploring-a-codebase.js"),
+  "eu-02-fixing-bugs-workflow": () => import("./eu-02-fixing-bugs-workflow.js"),
+  "eu-03-refactoring-code": () => import("./eu-03-refactoring-code.js"),
+  "eu-04-writing-tests": () => import("./eu-04-writing-tests.js"),
+  "eu-05-creating-commits-and-prs": () => import("./eu-05-creating-commits-and-prs.js"),
+  "eu-06-working-with-documentation": () => import("./eu-06-working-with-documentation.js"),
+  "eu-07-be-specific-upfront": () => import("./eu-07-be-specific-upfront.js"),
+  "eu-08-give-claude-verification": () => import("./eu-08-give-claude-verification.js"),
+  "eu-09-explore-before-implementing": () => import("./eu-09-explore-before-implementing.js"),
+  "eu-10-delegate-dont-dictate": () => import("./eu-10-delegate-dont-dictate.js"),
+  "eu-11-iterative-conversation": () => import("./eu-11-iterative-conversation.js"),
+  "eu-12-working-with-images": () => import("./eu-12-working-with-images.js"),
+  "eu-13-referencing-files": () => import("./eu-13-referencing-files.js"),
+  "eu-14-resuming-conversations": () => import("./eu-14-resuming-conversations.js"),
 };
 
 export async function loadModuleContent(id) {
