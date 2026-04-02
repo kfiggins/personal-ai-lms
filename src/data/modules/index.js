@@ -119,6 +119,20 @@ const contentLoaders = {
   "ci-10-scheduled-tasks-local": () => import("./ci-10-scheduled-tasks-local.js"),
   "ci-11-piping-and-scripting": () => import("./ci-11-piping-and-scripting.js"),
   "ci-12-agent-teams": () => import("./ci-12-agent-teams.js"),
+
+  // Security & Enterprise
+  "sec-01-security-overview": () => import("./sec-01-security-overview.js"),
+  "sec-02-permission-system-deep-dive": () => import("./sec-02-permission-system-deep-dive.js"),
+  "sec-03-permission-rule-syntax": () => import("./sec-03-permission-rule-syntax.js"),
+  "sec-04-permission-modes-deep-dive": () => import("./sec-04-permission-modes-deep-dive.js"),
+  "sec-05-sandboxing": () => import("./sec-05-sandboxing.js"),
+  "sec-06-prompt-injection-protection": () => import("./sec-06-prompt-injection-protection.js"),
+  "sec-07-data-usage-and-privacy": () => import("./sec-07-data-usage-and-privacy.js"),
+  "sec-08-zero-data-retention": () => import("./sec-08-zero-data-retention.js"),
+  "sec-09-managing-costs": () => import("./sec-09-managing-costs.js"),
+  "sec-10-reducing-token-usage": () => import("./sec-10-reducing-token-usage.js"),
+  "sec-11-enterprise-deployment": () => import("./sec-11-enterprise-deployment.js"),
+  "sec-12-managed-settings": () => import("./sec-12-managed-settings.js"),
 };
 
 export async function loadModuleContent(id) {
