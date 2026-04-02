@@ -121,10 +121,10 @@ export function DataProvider({ children }) {
           streaks.longestStreak = streaks.currentStreak
         }
         // Persist updated streak
-        supabase.from('user_streaks').upsert({
+        await supabase.from('user_streaks').upsert({
           user_id: userId, current_streak: streaks.currentStreak,
           longest_streak: streaks.longestStreak, last_active_date: streaks.lastActiveDate,
-        }, { onConflict: 'user_id' }).catch(() => {})
+        }, { onConflict: 'user_id' })
       }
 
       setProgress({ modules, quizHistory, reviewQueue, streaks, preTests })
@@ -510,9 +510,9 @@ export function DataProvider({ children }) {
         updatedAchievements[achievement.id] = { unlockedAt }
         newlyUnlocked.push(achievement)
 
-        supabase.from('user_achievements').upsert({
+        await supabase.from('user_achievements').upsert({
           user_id: userId, achievement_id: achievement.id, unlocked_at: unlockedAt,
-        }, { onConflict: 'user_id,achievement_id' }).catch(() => {})
+        }, { onConflict: 'user_id,achievement_id' })
       }
     }
 
