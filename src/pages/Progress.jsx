@@ -64,6 +64,7 @@ function Progress() {
     isModuleComplete,
     getReviewQueueSize,
     getCalibrationData,
+    getLeechQuestions,
     resetProgress,
   } = useProgress();
 
@@ -73,6 +74,7 @@ function Progress() {
   const overall = getOverallProgress();
   const reviewCount = getReviewQueueSize();
   const calibration = getCalibrationData();
+  const leechQuestions = getLeechQuestions();
 
   // Completed modules list
   const completedModules = MODULES.filter(
@@ -436,6 +438,54 @@ function Progress() {
           </div>
         </div>
       </div>
+
+      {/* Trouble Spots */}
+      {leechQuestions.length > 0 && (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Trouble Spots</h2>
+          <div className="bg-dark-surface border border-dark-border rounded-xl overflow-hidden">
+            <div className="px-5 py-3 border-b border-dark-border/50">
+              <p className="text-sm text-text-secondary">
+                Questions you've missed 3 or more times. Consider reviewing the source material.
+              </p>
+            </div>
+            {(() => {
+              // Group leeches by module
+              const byModule = {};
+              for (const leech of leechQuestions) {
+                if (!byModule[leech.moduleId]) byModule[leech.moduleId] = [];
+                byModule[leech.moduleId].push(leech);
+              }
+              return Object.entries(byModule).map(([moduleId, leeches]) => {
+                const mod = MODULES.find((m) => m.id === moduleId);
+                if (!mod) return null;
+                return (
+                  <div
+                    key={moduleId}
+                    className="px-5 py-3 border-b border-dark-border/50 last:border-b-0"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-yellow-400 text-sm">⚡</span>
+                        <span className="text-sm font-medium">{mod.title}</span>
+                        <span className="text-xs text-text-secondary bg-dark-card px-1.5 py-0.5 rounded">
+                          {leeches.length} question{leeches.length !== 1 && "s"}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => navigate(`/learn/${moduleId}`)}
+                        className="text-xs text-yellow-400 hover:text-yellow-300 transition-colors cursor-pointer"
+                      >
+                        Review module
+                      </button>
+                    </div>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        </div>
+      )}
 
       {/* Actions */}
       <div className="bg-dark-surface border border-dark-border rounded-xl p-6">

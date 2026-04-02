@@ -80,6 +80,18 @@ export function useProgress() {
     return store.getCalibrationData();
   }, []);
 
+  const getUnmetPrerequisites = useCallback((moduleId) => {
+    return store.getUnmetPrerequisites(moduleId);
+  }, []);
+
+  const getLeechQuestions = useCallback(() => {
+    return store.getLeechQuestions();
+  }, []);
+
+  const isLeechQuestion = useCallback((questionId) => {
+    return store.isLeechQuestion(questionId);
+  }, []);
+
   const resetProgress = useCallback(() => {
     const fresh = store.resetProgress();
     setProgress(fresh);
@@ -103,6 +115,9 @@ export function useProgress() {
     savePreTestResult,
     getPreTestResult,
     getCalibrationData,
+    getUnmetPrerequisites,
+    getLeechQuestions,
+    isLeechQuestion,
     resetProgress,
   };
 }

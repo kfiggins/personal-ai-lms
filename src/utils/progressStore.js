@@ -221,6 +221,66 @@ export function getPreTestResult(moduleId) {
   return state.preTests?.[moduleId] || null;
 }
 
+// --- Prerequisites ---
+
+export function getUnmetPrerequisites(moduleId) {
+  const mod = MODULES.find((m) => m.id === moduleId);
+  if (!mod || !mod.prerequisites || mod.prerequisites.length === 0) return [];
+
+  const state = getProgress();
+  return mod.prerequisites
+    .filter((prereqId) => !state.modules[prereqId]?.completed)
+    .map((prereqId) => {
+      const prereqMod = MODULES.find((m) => m.id === prereqId);
+      return prereqMod ? { id: prereqId, title: prereqMod.title } : null;
+    })
+    .filter(Boolean);
+}
+
+// --- Leech Detection ---
+
+const LEECH_THRESHOLD = 3;
+
+export function getLeechQuestions() {
+  const state = getProgress();
+  // Count review failures per question from quizHistory
+  const failCounts = {};
+  for (const entry of state.quizHistory) {
+    if (entry.questionId && !entry.correct) {
+      failCounts[entry.questionId] = (failCounts[entry.questionId] || 0) + 1;
+    }
+  }
+
+  const leeches = [];
+  for (const [questionId, count] of Object.entries(failCounts)) {
+    if (count >= LEECH_THRESHOLD) {
+      // Find the moduleId from review queue or quizHistory
+      const historyEntry = state.quizHistory.find(
+        (e) => e.questionId === questionId
+      );
+      if (historyEntry) {
+        leeches.push({
+          questionId,
+          moduleId: historyEntry.moduleId,
+          failCount: count,
+        });
+      }
+    }
+  }
+  return leeches;
+}
+
+export function isLeechQuestion(questionId) {
+  const state = getProgress();
+  let failCount = 0;
+  for (const entry of state.quizHistory) {
+    if (entry.questionId === questionId && !entry.correct) {
+      failCount++;
+    }
+  }
+  return failCount >= LEECH_THRESHOLD;
+}
+
 // --- Reset ---
 
 export function resetProgress() {

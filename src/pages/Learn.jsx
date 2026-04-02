@@ -15,11 +15,12 @@ import PreTest from "../components/PreTest.jsx";
 function Learn() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
-  const { isModuleComplete, getModuleProgress, getPreTestResult, savePreTestResult } = useProgress();
+  const { isModuleComplete, getModuleProgress, getPreTestResult, savePreTestResult, getUnmetPrerequisites } = useProgress();
 
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [preTestDone, setPreTestDone] = useState(false);
+  const [prereqDismissed, setPrereqDismissed] = useState(false);
 
   const moduleMeta = getModule(moduleId);
   const nextModule = getNextModule(moduleId);
@@ -30,6 +31,7 @@ function Learn() {
     setLoading(true);
     setContent(null);
     setPreTestDone(false);
+    setPrereqDismissed(false);
 
     getModuleContent(moduleId).then((data) => {
       if (!cancelled) {
@@ -101,6 +103,7 @@ function Learn() {
   const completed = isModuleComplete(moduleId);
   const moduleProgress = getModuleProgress(moduleId);
   const existingPreTest = getPreTestResult(moduleId);
+  const unmetPrereqs = getUnmetPrerequisites(moduleId);
 
   // Show pre-test for modules the user hasn't completed yet
   // Skip if: already completed, already did pre-test, no quiz questions, or pre-test dismissed this session
@@ -175,6 +178,37 @@ function Learn() {
           </div>
         )}
       </div>
+
+      {/* Prerequisite warning */}
+      {unmetPrereqs.length > 0 && !prereqDismissed && (
+        <div className="mb-6 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-start gap-3">
+          <span className="text-yellow-400 text-lg shrink-0 mt-0.5">⚠</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm text-yellow-200">
+              <span className="font-semibold">Recommended:</span> Complete{" "}
+              {unmetPrereqs.map((prereq, i) => (
+                <span key={prereq.id}>
+                  {i > 0 && (i === unmetPrereqs.length - 1 ? " and " : ", ")}
+                  <Link
+                    to={`/learn/${prereq.id}`}
+                    className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+                  >
+                    {prereq.title}
+                  </Link>
+                </span>
+              ))}{" "}
+              first
+            </p>
+          </div>
+          <button
+            onClick={() => setPrereqDismissed(true)}
+            className="text-yellow-500/60 hover:text-yellow-400 transition-colors text-sm shrink-0 cursor-pointer"
+            aria-label="Dismiss"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Content blocks */}
       <div className="space-y-2">

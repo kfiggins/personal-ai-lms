@@ -9,6 +9,7 @@ function Review() {
     getReviewableQuestions,
     recordReviewAttempt,
     getReviewQueueSize,
+    isLeechQuestion,
   } = useProgress();
 
   const [loading, setLoading] = useState(true);
@@ -228,8 +229,13 @@ function Review() {
 
       {/* Module context */}
       {moduleMeta && (
-        <div className="text-xs text-text-secondary mb-4">
-          From: {moduleMeta.categoryTitle} &middot; {moduleMeta.title}
+        <div className="text-xs text-text-secondary mb-4 flex items-center gap-2">
+          <span>From: {moduleMeta.categoryTitle} &middot; {moduleMeta.title}</span>
+          {isLeechQuestion(current.reviewData.questionId) && (
+            <span className="inline-flex items-center gap-1 text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 rounded px-1.5 py-0.5 text-xs font-medium">
+              ⚡ Trouble spot
+            </span>
+          )}
         </div>
       )}
 
@@ -242,6 +248,21 @@ function Review() {
           totalQuestions={reviewItems.length}
           onAnswer={handleAnswer}
         />
+
+        {/* Leech suggestion */}
+        {answered && isLeechQuestion(current.reviewData.questionId) && moduleMeta && (
+          <div className="mt-4 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20">
+            <p className="text-sm text-yellow-200/80">
+              This one keeps tripping you up. Try re-reading the section on{" "}
+              <Link
+                to={`/learn/${current.reviewData.moduleId}`}
+                className="text-yellow-400 underline underline-offset-2 hover:text-yellow-300 transition-colors"
+              >
+                {moduleMeta.title}
+              </Link>.
+            </p>
+          </div>
+        )}
 
         {/* Difficulty rating overlay */}
         {waitingForRating && (

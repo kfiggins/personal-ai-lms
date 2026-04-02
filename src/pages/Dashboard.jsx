@@ -26,6 +26,7 @@ function Dashboard() {
     getCategoryProgress,
     isModuleComplete,
     getReviewQueueSize,
+    getUnmetPrerequisites,
   } = useProgress();
 
   const overall = getOverallProgress();
@@ -152,6 +153,14 @@ function Dashboard() {
               <p className="text-text-secondary text-sm">
                 {nextModule.categoryTitle} &middot; ~{nextModule.estimatedMinutes} min
               </p>
+              {(() => {
+                const prereqs = getUnmetPrerequisites(nextModule.id);
+                return prereqs.length > 0 ? (
+                  <p className="text-yellow-400/80 text-xs mt-1">
+                    🔒 Has unmet prerequisites
+                  </p>
+                ) : null;
+              })()}
             </div>
             <button
               onClick={() => navigate(`/learn/${nextModule.id}`)}
@@ -204,16 +213,23 @@ function Dashboard() {
                   <ProgressBar percentage={catProgress.percentage} />
                 </div>
                 {targetModule && (
-                  <button
-                    onClick={() => navigate(`/learn/${targetModule.id}`)}
-                    className={`w-full py-2 rounded-lg font-medium text-sm transition-colors cursor-pointer ${
-                      allDone
-                        ? "bg-green-900/30 text-green-400 border border-green-800 hover:bg-green-900/50"
-                        : "bg-accent hover:bg-accent-hover text-dark-bg"
-                    }`}
-                  >
-                    {allDone ? "Review" : started ? "Continue" : "Start"}
-                  </button>
+                  <>
+                    {!allDone && getUnmetPrerequisites(targetModule.id).length > 0 && (
+                      <p className="text-yellow-400/70 text-xs mb-2 flex items-center gap-1">
+                        <span>🔒</span> Prereqs recommended
+                      </p>
+                    )}
+                    <button
+                      onClick={() => navigate(`/learn/${targetModule.id}`)}
+                      className={`w-full py-2 rounded-lg font-medium text-sm transition-colors cursor-pointer ${
+                        allDone
+                          ? "bg-green-900/30 text-green-400 border border-green-800 hover:bg-green-900/50"
+                          : "bg-accent hover:bg-accent-hover text-dark-bg"
+                      }`}
+                    >
+                      {allDone ? "Review" : started ? "Continue" : "Start"}
+                    </button>
+                  </>
                 )}
               </div>
             );
