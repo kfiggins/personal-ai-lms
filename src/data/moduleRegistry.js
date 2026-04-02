@@ -29,9 +29,20 @@ export const MODULES = [
   { id: "gs-12-what-you-can-do-overview", title: "What You Can Do: Overview", category: "getting-started", categoryTitle: "Getting Started", order: 12, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "overview" },
 
   // Core Concepts
-  { id: "cc-01-agentic-loop", title: "The Agentic Loop", category: "core-concepts", categoryTitle: "Core Concepts", order: 1, estimatedMinutes: 5, prerequisites: ["gs-05-your-first-session"], docSource: "agentic-loop" },
-  { id: "cc-02-context-window", title: "Understanding the Context Window", category: "core-concepts", categoryTitle: "Core Concepts", order: 2, estimatedMinutes: 4, prerequisites: ["cc-01-agentic-loop"], docSource: "context-window" },
-  { id: "cc-03-tool-use", title: "How Tool Use Works", category: "core-concepts", categoryTitle: "Core Concepts", order: 3, estimatedMinutes: 5, prerequisites: ["cc-01-agentic-loop"], docSource: "tool-use" },
+  { id: "cc-01-the-agentic-loop", title: "The Agentic Loop", category: "core-concepts", categoryTitle: "Core Concepts", order: 1, estimatedMinutes: 5, prerequisites: ["gs-05-your-first-session"], docSource: "how-claude-code-works" },
+  { id: "cc-02-models-and-reasoning", title: "Models and Reasoning", category: "core-concepts", categoryTitle: "Core Concepts", order: 2, estimatedMinutes: 4, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-03-tools-overview", title: "Tools Overview", category: "core-concepts", categoryTitle: "Core Concepts", order: 3, estimatedMinutes: 4, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-04-file-operations-tools", title: "File Operations Tools", category: "core-concepts", categoryTitle: "Core Concepts", order: 4, estimatedMinutes: 4, prerequisites: ["cc-03-tools-overview"], docSource: "tools-reference" },
+  { id: "cc-05-search-tools", title: "Search Tools", category: "core-concepts", categoryTitle: "Core Concepts", order: 5, estimatedMinutes: 4, prerequisites: ["cc-03-tools-overview"], docSource: "tools-reference" },
+  { id: "cc-06-execution-tools", title: "Execution Tools", category: "core-concepts", categoryTitle: "Core Concepts", order: 6, estimatedMinutes: 4, prerequisites: ["cc-03-tools-overview"], docSource: "tools-reference" },
+  { id: "cc-07-web-tools", title: "Web Tools", category: "core-concepts", categoryTitle: "Core Concepts", order: 7, estimatedMinutes: 3, prerequisites: ["cc-03-tools-overview"], docSource: "tools-reference" },
+  { id: "cc-08-what-claude-can-access", title: "What Claude Can Access", category: "core-concepts", categoryTitle: "Core Concepts", order: 8, estimatedMinutes: 4, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-09-sessions-explained", title: "Sessions Explained", category: "core-concepts", categoryTitle: "Core Concepts", order: 9, estimatedMinutes: 4, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-10-the-context-window", title: "The Context Window", category: "core-concepts", categoryTitle: "Core Concepts", order: 10, estimatedMinutes: 5, prerequisites: ["cc-01-the-agentic-loop"], docSource: "context-window" },
+  { id: "cc-11-context-management", title: "Context Management", category: "core-concepts", categoryTitle: "Core Concepts", order: 11, estimatedMinutes: 5, prerequisites: ["cc-10-the-context-window"], docSource: "how-claude-code-works" },
+  { id: "cc-12-checkpoints-and-undo", title: "Checkpoints and Undo", category: "core-concepts", categoryTitle: "Core Concepts", order: 12, estimatedMinutes: 3, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-13-permission-modes-intro", title: "Permission Modes Intro", category: "core-concepts", categoryTitle: "Core Concepts", order: 13, estimatedMinutes: 4, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
+  { id: "cc-14-execution-environments", title: "Execution Environments", category: "core-concepts", categoryTitle: "Core Concepts", order: 14, estimatedMinutes: 3, prerequisites: ["cc-01-the-agentic-loop"], docSource: "how-claude-code-works" },
 
   // Everyday Usage
   { id: "eu-01-writing-prompts", title: "Writing Effective Prompts", category: "everyday-usage", categoryTitle: "Everyday Usage", order: 1, estimatedMinutes: 6, prerequisites: ["gs-05-your-first-session"], docSource: "prompting" },
@@ -69,7 +80,7 @@ export const MODULES = [
   { id: "se-03-audit-compliance", title: "Audit and Compliance", category: "security-enterprise", categoryTitle: "Security & Enterprise", order: 3, estimatedMinutes: 5, prerequisites: ["se-01-sandboxing"], docSource: "compliance" },
 
   // Advanced Topics
-  { id: "ad-01-subagents", title: "Multi-Agent Workflows", category: "advanced", categoryTitle: "Advanced Topics", order: 1, estimatedMinutes: 7, prerequisites: ["cc-03-tool-use", "ex-01-custom-skills"], docSource: "subagents" },
+  { id: "ad-01-subagents", title: "Multi-Agent Workflows", category: "advanced", categoryTitle: "Advanced Topics", order: 1, estimatedMinutes: 7, prerequisites: ["cc-03-tools-overview", "ex-01-custom-skills"], docSource: "subagents" },
   { id: "ad-02-computer-use", title: "Computer Use", category: "advanced", categoryTitle: "Advanced Topics", order: 2, estimatedMinutes: 6, prerequisites: ["ad-01-subagents"], docSource: "computer-use" },
   { id: "ad-03-agent-teams", title: "Agent Teams and Orchestration", category: "advanced", categoryTitle: "Advanced Topics", order: 3, estimatedMinutes: 8, prerequisites: ["ad-01-subagents"], docSource: "agent-teams" },
 ];
