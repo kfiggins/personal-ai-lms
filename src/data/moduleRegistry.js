@@ -16,21 +16,30 @@ export const CATEGORIES = [
 export const MODULES = [
   // Getting Started
   { id: "gs-01-what-is-claude-code", title: "What is Claude Code?", category: "getting-started", categoryTitle: "Getting Started", order: 1, estimatedMinutes: 3, prerequisites: [], docSource: "overview" },
-  { id: "gs-02-installing-claude-code", title: "Installing Claude Code", category: "getting-started", categoryTitle: "Getting Started", order: 2, estimatedMinutes: 4, prerequisites: ["gs-01-what-is-claude-code"], docSource: "quickstart" },
-  { id: "gs-03-your-first-session", title: "Starting Your First Session", category: "getting-started", categoryTitle: "Getting Started", order: 3, estimatedMinutes: 5, prerequisites: ["gs-02-installing-claude-code"], docSource: "quickstart" },
+  { id: "gs-02-where-claude-code-runs", title: "Where Claude Code Runs", category: "getting-started", categoryTitle: "Getting Started", order: 2, estimatedMinutes: 3, prerequisites: ["gs-01-what-is-claude-code"], docSource: "overview" },
+  { id: "gs-03-installing-claude-code", title: "Installing Claude Code", category: "getting-started", categoryTitle: "Getting Started", order: 3, estimatedMinutes: 4, prerequisites: ["gs-02-where-claude-code-runs"], docSource: "quickstart" },
+  { id: "gs-04-logging-in", title: "Logging In", category: "getting-started", categoryTitle: "Getting Started", order: 4, estimatedMinutes: 3, prerequisites: ["gs-03-installing-claude-code"], docSource: "authentication" },
+  { id: "gs-05-your-first-session", title: "Your First Session", category: "getting-started", categoryTitle: "Getting Started", order: 5, estimatedMinutes: 4, prerequisites: ["gs-04-logging-in"], docSource: "quickstart" },
+  { id: "gs-06-asking-questions", title: "Asking Questions About Your Code", category: "getting-started", categoryTitle: "Getting Started", order: 6, estimatedMinutes: 3, prerequisites: ["gs-05-your-first-session"], docSource: "quickstart" },
+  { id: "gs-07-making-code-changes", title: "Making Code Changes", category: "getting-started", categoryTitle: "Getting Started", order: 7, estimatedMinutes: 4, prerequisites: ["gs-06-asking-questions"], docSource: "quickstart" },
+  { id: "gs-08-git-with-claude-code", title: "Git with Claude Code", category: "getting-started", categoryTitle: "Getting Started", order: 8, estimatedMinutes: 4, prerequisites: ["gs-07-making-code-changes"], docSource: "quickstart" },
+  { id: "gs-09-fixing-bugs", title: "Fixing Bugs", category: "getting-started", categoryTitle: "Getting Started", order: 9, estimatedMinutes: 3, prerequisites: ["gs-07-making-code-changes"], docSource: "quickstart" },
+  { id: "gs-10-essential-cli-commands", title: "Essential CLI Commands", category: "getting-started", categoryTitle: "Getting Started", order: 10, estimatedMinutes: 5, prerequisites: ["gs-05-your-first-session"], docSource: "quickstart" },
+  { id: "gs-11-pro-tips-for-beginners", title: "Pro Tips for Beginners", category: "getting-started", categoryTitle: "Getting Started", order: 11, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "quickstart" },
+  { id: "gs-12-what-you-can-do-overview", title: "What You Can Do: Overview", category: "getting-started", categoryTitle: "Getting Started", order: 12, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "overview" },
 
   // Core Concepts
-  { id: "cc-01-agentic-loop", title: "The Agentic Loop", category: "core-concepts", categoryTitle: "Core Concepts", order: 1, estimatedMinutes: 5, prerequisites: ["gs-03-your-first-session"], docSource: "agentic-loop" },
+  { id: "cc-01-agentic-loop", title: "The Agentic Loop", category: "core-concepts", categoryTitle: "Core Concepts", order: 1, estimatedMinutes: 5, prerequisites: ["gs-05-your-first-session"], docSource: "agentic-loop" },
   { id: "cc-02-context-window", title: "Understanding the Context Window", category: "core-concepts", categoryTitle: "Core Concepts", order: 2, estimatedMinutes: 4, prerequisites: ["cc-01-agentic-loop"], docSource: "context-window" },
   { id: "cc-03-tool-use", title: "How Tool Use Works", category: "core-concepts", categoryTitle: "Core Concepts", order: 3, estimatedMinutes: 5, prerequisites: ["cc-01-agentic-loop"], docSource: "tool-use" },
 
   // Everyday Usage
-  { id: "eu-01-writing-prompts", title: "Writing Effective Prompts", category: "everyday-usage", categoryTitle: "Everyday Usage", order: 1, estimatedMinutes: 6, prerequisites: ["gs-03-your-first-session"], docSource: "prompting" },
+  { id: "eu-01-writing-prompts", title: "Writing Effective Prompts", category: "everyday-usage", categoryTitle: "Everyday Usage", order: 1, estimatedMinutes: 6, prerequisites: ["gs-05-your-first-session"], docSource: "prompting" },
   { id: "eu-02-fixing-bugs", title: "Fixing Bugs with Claude Code", category: "everyday-usage", categoryTitle: "Everyday Usage", order: 2, estimatedMinutes: 5, prerequisites: ["eu-01-writing-prompts"], docSource: "common-tasks" },
   { id: "eu-03-code-reviews", title: "Code Reviews and Refactoring", category: "everyday-usage", categoryTitle: "Everyday Usage", order: 3, estimatedMinutes: 5, prerequisites: ["eu-01-writing-prompts"], docSource: "common-tasks" },
 
   // Configuration & Settings
-  { id: "cf-01-settings-overview", title: "Settings Overview", category: "configuration", categoryTitle: "Configuration & Settings", order: 1, estimatedMinutes: 4, prerequisites: ["gs-03-your-first-session"], docSource: "settings" },
+  { id: "cf-01-settings-overview", title: "Settings Overview", category: "configuration", categoryTitle: "Configuration & Settings", order: 1, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "settings" },
   { id: "cf-02-permission-modes", title: "Permission Modes", category: "configuration", categoryTitle: "Configuration & Settings", order: 2, estimatedMinutes: 5, prerequisites: ["cf-01-settings-overview"], docSource: "permissions" },
   { id: "cf-03-model-configuration", title: "Model Configuration", category: "configuration", categoryTitle: "Configuration & Settings", order: 3, estimatedMinutes: 4, prerequisites: ["cf-01-settings-overview"], docSource: "model-config" },
 
@@ -45,9 +54,9 @@ export const MODULES = [
   { id: "ex-03-mcp-servers", title: "MCP Servers", category: "extensibility", categoryTitle: "Extending Claude Code", order: 3, estimatedMinutes: 7, prerequisites: ["ex-01-custom-skills"], docSource: "mcp" },
 
   // Platforms & Integrations
-  { id: "pl-01-vscode-extension", title: "VS Code Extension", category: "platforms", categoryTitle: "Platforms & Integrations", order: 1, estimatedMinutes: 4, prerequisites: ["gs-03-your-first-session"], docSource: "vscode" },
-  { id: "pl-02-jetbrains-extension", title: "JetBrains Extension", category: "platforms", categoryTitle: "Platforms & Integrations", order: 2, estimatedMinutes: 4, prerequisites: ["gs-03-your-first-session"], docSource: "jetbrains" },
-  { id: "pl-03-desktop-web", title: "Desktop and Web Apps", category: "platforms", categoryTitle: "Platforms & Integrations", order: 3, estimatedMinutes: 3, prerequisites: ["gs-03-your-first-session"], docSource: "desktop-web" },
+  { id: "pl-01-vscode-extension", title: "VS Code Extension", category: "platforms", categoryTitle: "Platforms & Integrations", order: 1, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "vscode" },
+  { id: "pl-02-jetbrains-extension", title: "JetBrains Extension", category: "platforms", categoryTitle: "Platforms & Integrations", order: 2, estimatedMinutes: 4, prerequisites: ["gs-05-your-first-session"], docSource: "jetbrains" },
+  { id: "pl-03-desktop-web", title: "Desktop and Web Apps", category: "platforms", categoryTitle: "Platforms & Integrations", order: 3, estimatedMinutes: 3, prerequisites: ["gs-05-your-first-session"], docSource: "desktop-web" },
 
   // CI/CD & Automation
   { id: "ci-01-github-actions", title: "GitHub Actions Integration", category: "cicd-automation", categoryTitle: "CI/CD & Automation", order: 1, estimatedMinutes: 7, prerequisites: ["eu-01-writing-prompts"], docSource: "github-actions" },
